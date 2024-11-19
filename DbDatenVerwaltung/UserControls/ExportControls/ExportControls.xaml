@@ -1,0 +1,57 @@
+﻿<UserControl x:Class="DbDatenVerwaltung.UserControls.ExportControls.ExportControls"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:DbDatenVerwaltung.UserControls.ExportControls"
+             mc:Ignorable="d"
+             Width="950"
+             Height="Auto">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        
+        <Border Grid.Row="0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                
+                <!-- Database Selector -->
+                <TextBlock Grid.Column="0" 
+                           Grid.Row="0"  
+                           FontSize="16">
+                    Datenbank auswählen:
+                </TextBlock>
+                
+                <ComboBox Grid.Column="0" Grid.Row="1" x:Name="DbSelector" />
+                
+                <!-- Format Selector -->
+                <TextBlock Grid.Row="0" Grid.Column="1">
+                    Format auswählen:
+                </TextBlock>
+                
+            </Grid>
+        </Border>
+        
+        <Border Grid.Row="1">
+           <ComboBox x:Name="formatSeletor" />
+        </Border>
+        
+        <Border Grid.Row="2">
+            <Button x:Name="StartExportButton"
+                    Width="300">
+                Export Starten
+            </Button>
+        </Border>
+        
+    </Grid>
+</UserControl>

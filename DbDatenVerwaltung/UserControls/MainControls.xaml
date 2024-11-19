@@ -1,0 +1,109 @@
+﻿<UserControl x:Class="DbDatenVerwaltung.UserControls.MainControls"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             Width="950"
+             Height="Auto">
+    <Grid>
+
+        <Grid.Resources>
+            <DataTemplate x:Key="DeleteButtonTemplate">
+                <Button Content="Delete"
+                        Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                        CommandParameter="{Binding}"
+                        FontSize="16"
+                        Padding="0"
+                        Margin="0">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="Foreground" Value="Red" />
+                            <Setter Property="BorderBrush" Value="Red" />
+                            <Setter Property="BorderThickness" Value="1" />
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </DataTemplate>
+        </Grid.Resources>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Database View on Left Column -->
+        <Border x:Name="DataBaseView"
+                Grid.Row="1">
+            <StackPanel>
+                <DataGrid x:Name="SavedDatabases"
+                          AutoGenerateColumns="False"
+                          VerticalScrollBarVisibility="Auto"
+                          HorizontalScrollBarVisibility="Auto"
+                          CanUserAddRows="False"
+                          CanUserDeleteRows="False"
+                          SelectionMode="Extended"
+                          ColumnWidth="Auto"
+                          IsReadOnly="True"
+                          ItemsSource="{Binding}"
+                          SelectionChanged="SavedDatabases_OnSelectionChanged">
+                    <DataGrid.Resources>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                        </Style>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="FontSize" Value="16" />
+                            <Setter Property="FontWeight" Value="Bold" />
+                        </Style>
+                    </DataGrid.Resources>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Connection-Name"
+                                            Binding="{Binding Name}" />
+
+                        <!-- Define columns for each key in the nested dictionary as needed -->
+                        <DataGridTextColumn Header="Database"
+                                            Binding="{Binding DbValues[Database]}" />
+                        <DataGridTextColumn Header="Type"
+                                            Binding="{Binding DbValues[Type]}" />
+                        <DataGridTextColumn Header="Weitere Änderungen" />
+                        <DataGridTemplateColumn Header="Delete"
+                                                CellTemplate="{StaticResource DeleteButtonTemplate}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <Button x:Name="AddDatabaseButton"
+                        Style="{StaticResource SmallButtonStyle}"
+                        Content="Add Database"
+                        Click="AddDatabaseButton_OnClick" />
+            </StackPanel>
+        </Border>
+
+        <!-- Selection View on Right Column -->
+        <Border Grid.Row="0" x:Name="SelectionView" Grid.Column="0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="2*" />
+                </Grid.RowDefinitions>
+
+                <!-- Header TextBlock -->
+                <TextBlock Grid.Row="0"
+                           FontSize="24"
+                           FontWeight="Bold"
+                           Text="Auswahlmenü" />
+
+                <!-- Button StackPanel -->
+                <StackPanel Grid.Row="1">
+                    <Button x:Name="StartImportButton"
+                            Click="StartImportButton_OnClick"
+                            Content="Importieren" />
+
+                    <Button x:Name="StartExportButton"
+                            Click="StartExportButton_OnClick"
+                            Content="Exportieren" />
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>
